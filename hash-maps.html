@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hash Maps</title>
+</head>
+<body>
+	<h2>This is an implementation of hash maps.</h2>
+	<p>On collisions there are two solutions: seprate chaining and open addressing.</p>
+	<ul>
+		<li>Seprate chaining: each slot holds a linked list so hash the key, find the slot, add the pair to the start of the list.</li>
+		<li>Open addressing: add the pair to the nearest empty slot to where it should live.</li> 
+	</ul>
+</body>
+<script>
+	var HashMap = function(initialCapacity) {
+		this.length = 0; 
+		this._slots = [];
+		this._capacity = initialCapacity || 8;
+	}
+	HashMap.MAX_LOAD_RATIO = 0.9;
+	HashMap.SIZE_RATIO = 3;
+
+	HashMap._hashString = function(string) {
+		var hash = 5381;
+		for (var i = 0; i < string.length; i++) {
+			// << left shift bitwise
+			hash = (hash << 5) + hash + string.charCodeAt(i);
+			// AND bitwise
+			hash = hash & hash;
+		}
+		// zero-fill right shift bitwise
+		return hash >>> 0;
+	}
+</script>
+</html>
