@@ -116,7 +116,7 @@
 	    this._deleted++;
 	};
 
-	var isPalin = function(string) {
+	var isPalindrome = function(string) {
 		var characters = {};
 		var palCheck = true;
 		var counter = 0;
@@ -148,7 +148,7 @@
 		return palCheck;
 	}
 
-	var isPalin2 = function(string) {
+	var isPalindrome2 = function(string) {
 		var characters = {};
 		for (i = 0; i < string.length; i++) {
 			if (characters[string[i]]) {
@@ -160,28 +160,28 @@
 		return (Object.keys(characters).length <= 1);
 	}
 
+
 	var anagram = function(array) {
 		var anagrams = {};
 		var sorted = [];
 		var solution = [];
 		for (i = 0; i < array.length; i++) {
 			sorted[i] = array[i].split("").sort().join("");
-			anagrams[array[i]] = sorted[i];
+			anagrams[array[i]] = [];
 		}
-		sorted = [];
 		for (var keys in anagrams) {
-			for (var keys1 in anagrams) {
-				if (anagrams[keys] === anagrams[keys1]) {
-					sorted.push(keys);
-					delete anagrams[keys];
+			for (var j = 0; j < sorted.length; j++) {
+				if (keys.split("").sort().join("") === sorted[j]) {
+					anagrams[keys].push(array[j]);
 				}
 			}
-			console.log(sorted);
-			solution.push(sorted);
-			sorted = [];
+			for (var i = 1; i < anagrams[keys].length; i++) {
+				word = anagrams[keys][i]
+				delete anagrams[word];
+			}
+			solution.push(anagrams[keys]);
 		}
-		// console.log(solution);
-
+		return solution;	
 	}
 
 	var createHash = function() {
