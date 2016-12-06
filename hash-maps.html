@@ -102,6 +102,9 @@
 	    }
 	};
 
+	/* remove() finds the correct slot for the key and sets the deleted flag to
+	 * true, decreases the length and increases the deleted count.
+	 */
 	HashMap.prototype.remove = function(key) {
 	    var index = this._findSlot(key);
 	    var slot = this._slots[index];
@@ -113,5 +116,78 @@
 	    this._deleted++;
 	};
 
+	var isPalin = function(string) {
+		var characters = {};
+		var palCheck = true;
+		var counter = 0;
+		for (i = 0; i < string.length; i++) {
+			if (characters[string[i]]) {
+				characters[string[i]] += 1;
+			} else {
+				characters[string[i]] = 1;
+			}
+		}
+
+		if (string.length % 2 === 0) {
+			for (var char in characters) {
+				if (characters[char] % 2 !== 0) {
+					palCheck = false;
+				}
+			}
+		} else {
+			for (var char in characters) {
+				if (characters[char] % 2 !== 0) {
+
+					counter++;
+				}
+			}
+			if (counter > 1) {
+				palCheck = false;
+			}
+		}
+		return palCheck;
+	}
+
+	var isPalin2 = function(string) {
+		var characters = {};
+		for (i = 0; i < string.length; i++) {
+			if (characters[string[i]]) {
+				delete characters[string[i]];
+			} else {
+				characters[string[i]] = 1;
+			}
+		}
+		return (Object.keys(characters).length <= 1);
+	}
+
+	var anagram = function(array) {
+		var anagrams = {};
+		var sorted = [];
+		var solution = [];
+		for (i = 0; i < array.length; i++) {
+			sorted[i] = array[i].split("").sort().join("");
+			anagrams[array[i]] = sorted[i];
+		}
+		sorted = [];
+		for (var keys in anagrams) {
+			for (var keys1 in anagrams) {
+				if (anagrams[keys] === anagrams[keys1]) {
+					sorted.push(keys);
+					delete anagrams[keys];
+				}
+			}
+			console.log(sorted);
+			solution.push(sorted);
+			sorted = [];
+		}
+		// console.log(solution);
+
+	}
+
+	var createHash = function() {
+		var c = new HashMap();
+		c.set(1,1);
+		return c;
+	}
 </script>
 </html>
