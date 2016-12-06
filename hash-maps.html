@@ -72,7 +72,9 @@
 	 */
 	HashMap.prototype._findSlot = function(key) {
 	    var hash = HashMap._hashString(key);
+	    console.log(hash);
 	    var start = hash % this._capacity;
+	    console.log(start);
 
 	    for (var i=start; i<start + this._capacity; i++) {
 	        var index = i % this._capacity;
@@ -165,29 +167,34 @@
 		var anagrams = {};
 		var sorted = [];
 		var solution = [];
-		for (i = 0; i < array.length; i++) {
-			sorted[i] = array[i].split("").sort().join("");
-			anagrams[array[i]] = [];
+		// for (i = 0; i < array.length; i++) {
+		// 	sorted[i] = array[i].split("").sort().join("");
+		// 	anagrams[array[i]] = [];
+		// }
+		// for (var keys in anagrams) {
+		// 	for (var j = 0; j < sorted.length; j++) {
+		// 		if (keys.split("").sort().join("") === sorted[j]) {
+		// 			anagrams[keys].push(array[j]);
+		// 		}
+		// 	}
+		// 	for (var i = 1; i < anagrams[keys].length; i++) {
+		// 		word = anagrams[keys][i]
+		// 		delete anagrams[word];
+		// 	}
+		// 	solution.push(anagrams[keys]);
+		// }
+		for (var i = 0; i < array.length; i++) {
+			var word = array[i].split("").sort().join("");
+			if (anagrams[word]) {
+				anagrams[word].push(array[i]);
+			} else {
+				anagrams[word] = [array[i]];
+			}
 		}
-		for (var keys in anagrams) {
-			for (var j = 0; j < sorted.length; j++) {
-				if (keys.split("").sort().join("") === sorted[j]) {
-					anagrams[keys].push(array[j]);
-				}
-			}
-			for (var i = 1; i < anagrams[keys].length; i++) {
-				word = anagrams[keys][i]
-				delete anagrams[word];
-			}
-			solution.push(anagrams[keys]);
+		for (var key in anagrams) {
+			solution.push(anagrams[key]);
 		}
 		return solution;	
-	}
-
-	var createHash = function() {
-		var c = new HashMap();
-		c.set(1,1);
-		return c;
 	}
 </script>
 </html>
